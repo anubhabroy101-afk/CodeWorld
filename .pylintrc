@@ -1,0 +1,47 @@
+[MASTER]
+jobs=1
+persistent=yes
+suggestion-box-mr-owner-login=None
+unsafe-load-any-extension=no
+extension-pkg-allow-list=
+
+[MESSAGES CONTROL]
+disable=
+    C0111,  # missing-docstring
+    C0114,  # missing-module-docstring
+    C0115,  # missing-class-docstring
+    C0116,  # missing-function-docstring
+    W0212,  # protected-access
+    W0231,  # super-init-not-called
+    R0913,  # too-many-arguments
+    R0914,  # too-many-locals
+    C0103,  # invalid-name
+
+[FORMAT]
+max-line-length=88
+indent-string='    '
+indent-after-paren=4
+
+[DESIGN]
+max-args=10
+max-attributes=7
+max-bool-expr=5
+max-branches=12
+max-locals=15
+max-parents=7
+max-public-methods=20
+max-returns=6
+max-statements=50
+min-public-methods=2
+
+[VARIABLES]
+allowed-redefined-builtins=
+
+[LOGGING]
+logging-format-style=new
+
+[SIMILARITIES]
+min-similarity-lines=5
+ignore-comments=yes
+ignore-docstrings=yes
+ignore-imports=no

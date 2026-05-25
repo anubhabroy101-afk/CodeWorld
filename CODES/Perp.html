@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ColorCraft Pro - Professional Color Design Tool</title>
+    <style>
+        :root {
+            --primary-50: #f0f9ff;
+            --primary-100: #e0f2fe;
+            --primary-200: #bae6fd;
+            --primary-300: #7dd3fc;
+            --primary-400: #38bdf8;
+            --primary-500: #0ea5e9;
+            --primary-600: #0284c7;
+            --primary-700: #0369a1;
+            --primary-800: #075985;
+            --primary-900: #0c4a6e;
+            --secondary-500: #64748b;
+            --accent-500: #f59e0b;
+            --success-500: #10b981;
+            --warning-500: #f59e0b;
+            --error-500: #ef4444;
+            --surface: #ffffff;
+            --surface-variant: #f8fafc;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .app-container {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            grid-template-rows: 70px 1fr;
+            grid-template-areas: 
+                "sidebar header"
+                "sidebar main";
+        }
+
+        /* Header */
+        .header {
+            grid-area: header;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--bg-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.5rem 1.25rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-500);
+            border: 2px solid var(--primary-200);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-50);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            grid-area: sidebar;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid var(--border);
+            padding: 2rem 0;
+            overflow-y: auto;
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-section {
+            margin-bottom: 2rem;
+        }
+
+        .nav-section h3 {
+            padding: 0 1.5rem 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #475569;
+            text-decoration: none;
+            border-radius: 0 24px 24px 0;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .nav-item:hover {
+            background: var(--primary-50);
+            color: var(--primary-600);
+            transform: translateX(4px);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            color: white;
+        }
+
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: white;
+            border-radius: 0 2px 2px 0;
+        }
+
+        /* Main Content */
+        .main {
+            grid-area: main;
+            padding: 2rem;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: var(--bg-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            color: #64748b;
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--bg-gradient);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+
+        /* Palette Display */
+        .palette-preview {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .color-swatch {
+            aspect-ratio: 1;
+            border-radius: 16px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.8);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .color-swatch.active {
+            border-color: white;
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.5);
+        }
+
+        .color-label {
+            position: absolute;
+            bottom: 0.5rem;
+            left: 0.5rem;
+            right: 0.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-family: 'SF Mono', Monaco, monospace;
+            text-align: center;
+        }
+
+        /* Controls */
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .control-row {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .slider {
+            flex: 1;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--surface-variant);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary-500);
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .input-field {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-family: 'SF Mono', Monaco, monospace;
+            transition: border-color 0.2s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+
+        /* Color Wheel */
+        .color-wheel {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 1rem auto;
+            background: conic-gradient(red, yellow, lime, cyan, blue, magenta, red);
+            position: relative;
+            cursor: pointer;
+            border: 8px solid white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .color-wheel::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: var(--shadow-md);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Gradient Preview */
+        .gradient-preview {
+            height: 200px;
+            border-radius: 24px;
+            margin: 1rem 0;
+            background: linear-gradient(135deg, var(--primary-400), var(--accent-500), var(--success-500));
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gradient-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 49%, rgba(255,255,255,0.1) 50%, transparent 71%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Component Previews */
+        .ui-preview {
+            background: var(--surface-variant);
+            padding: 2rem;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .btn-demo {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .btn-primary-demo { background: var(--primary-500); color: white; }
+        .btn-secondary-demo { background: transparent; color: var(--primary-500); border: 2px solid var(--primary-500); }
+        .btn-success-demo { background: var(--success-500); color: white; }
+
+        .btn-demo:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-demo {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.2s ease;
+        }
+
+        .card-demo:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Export Panel */
+        .export-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .export-format {
+            background: var(--surface-variant);
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .export-format:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .app-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: 70px 70px 1fr;
+                grid-template-areas: 
+                    "header"
+                    "sidebar"
+                    "main";
+            }
+
+            .sidebar {
+                order: 2;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .palette-preview {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Theme Switch */
+        .theme-toggle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: var(--surface-variant);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-100);
+            transform: rotate(180deg);
+        }
+
+        /* Accessibility Checker */
+        .contrast-demo {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contrast-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contrast-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-success { background: rgba(16, 185, 129, 0.1); color: var(--success-500); }
+        .status-warning { background: rgba(245, 158, 11, 0.1); color: var(--warning-500); }
+        .status-error { background: rgba(239, 68, 68, 0.1); color: var(--error-500); }
+
+        /* Color Blind Simulation */
+        .simulation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .simulation-panel {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+
+        /* Animation Showcase */
+        .animated-gradient {
+            height: 150px;
+            border-radius: 20px;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Full page sections */
+        .section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scroll indicators */
+        .scroll-indicator {
+            position: sticky;
+            top: 0;
+            height: 4px;
+            background: var(--bg-gradient);
+            z-index: 100;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">ColorCraft Pro</div>
+            <div class="header-actions">
+                <button class="btn btn-secondary">New Project</button>
+                <button class="btn btn-primary">Export Palette</button>
+                <div class="theme-toggle">🌙</div>
+            </div>
+        </header>
+
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="nav-section">
+                <h3>Generation</h3>
+                <a href="#" class="nav-item active" data-section="generation">🎨 Palette Generator</a>
+                <a href="#" class="nav-item" data-section="smart-tools">🧠 Smart Tools</a>
+                <a href="#" class="nav-item" data-section="utilities">🔍 Utilities</a>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Accessibility</h3>
+                <a href="#" class="nav-item" data-section="accessibility">♿ A11y Tools</a>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Gradients</h3>
+                <a href="#" class="nav-item" data-section="gradients">🌈 Gradient Tools</a>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Design System</h3>
+                <a href="#" class="nav-item" data-section="design-system">🧩 Design Tokens</a>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Developer</h3>
+                <a href="#" class="nav-item" data-section="export">🎯 Export Tools</a>
+            </div>
+            
+            <div class="nav-section">
+                <h3>User</h3>
+                <a href="#" class="nav-item" data-section="user">⭐ My Palettes</a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Color Generation Section -->
+            <section id="generation" class="section active">
+                <h1 class="page-title">Palette Generation</h1>
+                <p class="page-subtitle">Generate professional color palettes using 16 different algorithms</p>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>🎲 Random Palette</h3>
+                        <div class="palette-preview">
+                            <div class="color-swatch" style="background: #ff6b6b;"><div class="color-label">#ff6b6b</div></div>
+                            <div class="color-swatch" style="background: #4ecdc4;"><div class="color-label">#4ecdc4</div></div>
+                            <div class="color-swatch" style="background: #45b7d1;"><div class="color-label">#45b7d1</div></div>
+                            <div class="color-swatch" style="background: #96ceb4;"><div class="color-label">#96ceb4</div></div>
+                            <div class="color-swatch" style="background: #feca57;"><div class="color-label">#feca57</div></div>
+                        </div>
+                        <div class="control-group">
+                            <button class="btn btn-primary">Generate New</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>🎯 Material Design</h3>
+                        <div class="palette-preview">
+                            <div class="color-swatch" style="background: var(--primary-50);"><div class="color-label">50</div></div>
+                            <div class="color-swatch" style="background: var(--primary-400);"><div class="color-label">400</div></div>
+                            <div class="color-swatch" style="background: var(--primary-500);"><div class="color-label">500</div></div>
+                            <div class="color-swatch" style="background: var(--primary-600);"><div class="color-label">600</div></div>
+                            <div class="color-swatch" style="background: var(--primary-900);"><div class="color-label">900</div></div>
+                        </div>
+                        <div class="control-row">
+                            <input type="color" class="input-field" value="#0ea5e9">
+                            <button class="btn btn-secondary">Generate</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>🌈 Color Wheel</h3>
+                        <div style="text-align: center;">
+                            <div class="color-wheel"></div>
+                        </div>
+                        <div class="control-group">
+                            <div class="control-row">
+                                <label>Mode:</label>
+                                <select class="input-field">
+                                    <option>Analogous</option>
+                                    <option>Complementary</option>
+                                    <option>Triadic</option>
+                                    <option>Tetradic</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>✨ Animated Gradient</h3>
+                        <div class="animated-gradient"></div>
+                        <div class="control-group">
+                            <button class="btn btn-primary">Copy CSS</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                    <div class="card">
+                        <h3>🎨 Monochromatic</h3>
+                        <div class="palette-preview">
+                            <div class="color-swatch" style="background: #a8e6cf;"><div class="color-label">#a8e6cf</div></div>
+                            <div class="color-swatch" style="background: #dcedc1;"><div class="color-label">#dcedc1</div></div>
+                            <div class="color-swatch" style="background: #ffd3a5;"><div class="color-label">#ffd3a5</div></div>
+                            <div class="color-swatch" style="background: #fd8a7a;"><div class="color-label">#fd8a7a</div></div>
+                            <div class="color-swatch" style="background: #e17055;"><div class="color-label">#e17055</div></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>🖤 Dark UI Palette</h3>
+                        <div class="palette-preview">
+                            <div class="color-swatch" style="background: #0f0f23;"><div class="color-label">#0f0f23</div></div>
+                            <div class="color-swatch" style="background: #1a1a2e;"><div class="color-label">#1a1a2e</div></div>
+                            <div class="color-swatch" style="background: #16213e;"><div class="color-label">#16213e</div></div>
+                            <div class="color-swatch" style="background: #0f3460;"><div class="color-label">#0f3460</div></div>
+                            <div class="color-swatch" style="background: #533a82;"><div class="color-label">#533a82</div></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>🍥 Pastel Dream</h3>
+                        <div class="palette-preview">
+                            <div class="color-swatch" style="background: #fdf2f8;"><div class="color-label">#fdf2f8</div></div>
+                            <div class="color-swatch" style="background: #f3e8ff;"><div class="color-label">#f3e8ff</div></div>
+                            <div class="color-swatch" style="background: #e0f2fe;"><div class="color-label">#e0f2fe</div></div>
+                            <div class="color-swatch" style="background: #f0fdf4;"><div class="color-label">#f0fdf4</div></div>
+                            <div class="color-swatch" style="background: #fef3c7;"><div class="color-label">#fef3c7</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Smart Tools Section -->
+            <section id="smart-tools" class="section">
+                <h1 class="page-title">Smart Design Tools</h1>
+                <p class="page-subtitle">AI-powered design system generation</p>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>🎨 Primary → Design System</h3>
+                        <div class="control-row">
+                            <input type="color" class="input-field" value="#0ea5e9" style="flex: none; width: 60px;">
+                            <button class="btn btn-primary">Generate System</button>
+                        </div>
+                        <div class="palette-preview" style="margin-top: 1rem;">
+                            <div class="color-swatch" style="background: var(--primary-50);"><div class="color-label">Background</div></div>
+                            <div class="color-swatch" style="background: var(--primary-500);"><div class="color-label">Primary</div></div>
+                            <div class="color-swatch" style="background: var(--primary-600);"><div class="color-label">Primary Dark</div></div>
+                            <div class="color-swatch" style="background: #fbbf24;"><div class="color-label">Accent</div></div>
+                            <div class="color-swatch" style="background: #10b981;"><div class="color-label">Success</div></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>🌗 Theme Generator</h3>
+                        <div class="ui-preview">
+                            <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: var(--shadow-md);">
+                                <h4 style="margin-bottom: 1rem;">Light Theme Preview</h4>
+                                <div style="display: flex; gap: 1rem;">
+                                    <button class="btn-demo btn-primary-demo">Primary</button>
+                                    <button class="btn-demo btn-secondary-demo">Secondary</button>
+                                </div>
+                            </div>
+                            <div style="background: #0f0f23; padding: 2rem; border-radius: 16px; box-shadow: var(--shadow-md);">
+                                <h4 style="margin-bottom: 1rem; color: white;">Dark Theme Preview</h4>
+                                <div style="display: flex; gap: 1rem;">
+                                    <button class="btn-demo btn-primary-demo" style="background: #3b82f6;">Primary</button>
+                                    <button class="btn-demo btn-secondary-demo" style="color: #93c5fd; border-color: #93c5fd;">Secondary</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>✅ Contrast Checker</h3>
+                        <div class="contrast-demo">
+                            <div class="contrast-card">
+                                <div class="contrast-text" style="color: #111827; background: white;">AaBbCc</div>
+                                <span class="status-badge status-success">WCAG AAA ✓</span>
+                            </div>
+                            <div class="contrast-card">
+                                <div class="contrast-text" style="color: #6b7280; background: white;">AaBbCc</div>
+                                <span class="status-badge status-warning">WCAG AA ⚠</span>
+                            </div>
+                            <div class="contrast-card">
+                                <div class="contrast-text" style="color: #f3f4f6; background: #1f2937;">AaBbCc</div>
+                                <span class="status-badge status-success">WCAG AAA ✓</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Utilities Section -->
+            <section id="utilities" class="section">
+                <h1 class="page-title">Color Utilities</h1>
+                <p class="page-subtitle">Professional color manipulation tools</p>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>🔄 Color Converter</h3>
+                        <div class="control-group">
+                            <input type="text" class="input-field" placeholder="#ff6b6b" value="#ff6b6b">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                                <input class="input-field" placeholder="rgb(255,107,107)" value="rgb(255,107,107)">
+                                <input class="input-field" placeholder="hsl(0,88%,71%)" value="hsl(0,88%,71%)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>🎚️ Shade Generator</h3>
+                        <div class="control-row">
+                            <input type="color" class="input-field" value="#0ea5e9" style="width: 60px;">
+                            <div style="flex: 1;">
+                                <input type="range" class="slider" min="0" max="100" value="50">
+                            </div>
+                        </div>
+                        <div class="palette-preview">
+                            <div class="color-swatch" style="background: #f0f9ff;"><div class="color-label">Tint 100</div></div>
+                            <div class="color-swatch" style="background: #38bdf8;"><div class="color-label">Tint 400</div></div>
+                            <div class="color-swatch" style="background: #0ea5e9;"><div class="color-label">Base</div></div>
+                            <div class="color-swatch" style="background: #0284c7;"><div class="color-label">Shade 600</div></div>
+                            <div class="color-swatch" style="background: #0c4a6e;"><div class="color-label">Shade 900</div></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>🖌️ Color Mixer</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <input type="color" class="input-field" value="#ff6b6b" style="width: 100%;">
+                                <label>Color 1</label>
+                            </div>
+                            <div>
+                                <input type="color" class="input-field" value="#4ecdc4" style="width: 100%;">
+                                <label>Color 2</label>
+                            </div>
+                        </div>
+                        <div class="gradient-preview" style="height: 120px; background: linear-gradient(90deg, #ff6b6b, #9bbbd4);"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Accessibility Section -->
+            <section id="accessibility" class="section">
+                <h1 class="page-title">Accessibility Tools</h1>
+                <p class="page-subtitle">Ensure your designs work for everyone</p>
+                
+                <div class="card-grid">
+                    <div class="card" style="grid-column: span 2;">
+                        <h3>👓 Color Blind Simulation</h3>
+                        <div class="simulation-grid">
+                            <div class="simulation-panel">
+                                <h4>Normal Vision</h4>
+                                <div class="palette-preview" style="justify-content: center;">
+                                    <div class="color-swatch" style="background: #ff6b6b; width: 60px; height: 60px;"></div>
+                                    <div class="color-swatch" style="background: #4ecdc4; width: 60px; height: 60px;"></div>
+                                    <div class="color-swatch" style="background: #45b7d1; width: 60px; height: 60px;"></div>
+                                </div>
+                            </div>
+                            <div class="simulation-panel">
+                                <h4>Protanopia</h4>
+                                <div class="palette-preview" style="justify-content: center;">
+                                    <div class="color-swatch" style="background: #e55a5a; width: 60px; height: 60px; filter: sepia(0.3) saturate(0.8);"></div>
+                                    <div class="color-swatch" style="background: #4ecdc4; width: 60px; height: 60px;"></div>
+                                    <div class="color-swatch" style="background: #3a9bba; width: 60px; height: 60px;"></div>
+                                </div>
+                            </div>
+                            <div class="simulation-panel">
+                                <h4>Deuteranopia</h4>
+                                <div class="palette-preview" style="justify-content: center;">
+                                    <div class="color-swatch" style="background: #d95a5a; width: 60px; height: 60px; filter: sepia(0.2);"></div>
+                                    <div class="color-swatch" style="background: #4abdc4; width: 60px; height: 60px;"></div>
+                                    <div class="color-swatch" style="background: #45b7d1; width: 60px; height: 60px;"></div>
+                                </div>
+                            </div>
+                            <div class="simulation-panel">
+                                <h4>Tritanopia</h4>
+                                <div class="palette-preview" style="justify-content: center;">
+                                    <div class="color-swatch" style="background: #ff6b6b; width: 60px; height: 60px;"></div>
+                                    <div class="color-swatch" style="background: #3ec4c4; width: 60px; height: 60px; filter: hue-rotate(180deg);"></div>
+                                    <div class="color-swatch" style="background: #4499b9; width: 60px; height: 60px; filter: hue-rotate(180deg);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Export Section -->
+            <section id="export" class="section">
+                <h1 class="page-title">Developer Export</h1>
+                <p class="page-subtitle">Export your palettes in any format</p>
+                
+                <div class="card-grid">
+                    <div class="card" style="grid-column: span 2;">
+                        <h3>📦 Export Formats</h3>
+                        <div class="export-panel">
+                            <div class="export-format">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📄</div>
+                                <div style="font-weight: 600; margin-bottom: 0.25rem;">CSS Variables</div>
+                                <div style="color: #64748b; font-size: 0.875rem;">:root { ... }</div>
+                            </div>
+                            <div class="export-format">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚛️</div>
+                                <div style="font-weight: 600; margin-bottom: 0.25rem;">Tailwind Config</div>
+                                <div style="color: #64748b; font-size: 0.875rem;">tailwind.config.js</div>
+                            </div>
+                            <div class="export-format">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📊</div>
+                                <div style="font-weight: 600; margin-bottom: 0.25rem;">JSON Tokens</div>
+                                <div style="color: #64748b; font-size: 0.875rem;">Design tokens</div>
+                            </div>
+                            <div class="export-format">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎨</div>
+                                <div style="font-weight: 600; margin-bottom: 0.25rem;">Figma Tokens</div>
+                            <div style="color: #64748b; font-size: 0.875rem;">Figma plugin</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>💾 Current Palette</h3>
+                        <pre style="background: var(--surface-variant); padding: 1.5rem; border-radius: 12px; font-size: 0.875rem; overflow-x: auto;">
+:root {
+  --primary-500: #0ea5e9;
+  --secondary-500: #64748b;
+  --accent-500: #f59e0b;
+  --success-500: #10b981;
+}
+                        </pre>
+                        <div style="margin-top: 1rem;">
+                            <button class="btn btn-primary" style="width: 100%;">Copy All Formats</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Other sections follow similar patterns -->
+            <section id="gradients" class="section">
+                <h1 class="page-title">Gradient Tools</h1>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>📐 Linear Gradient</h3>
+                        <div class="gradient-preview" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                        <div class="control-group">
+                            <input class="input-field" value="linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+                            <button class="btn btn-secondary">Copy CSS</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>🔴 Radial Gradient</h3>
+                        <div class="gradient-preview" style="background: radial-gradient(circle, #ff6b6b, #4ecdc4, #45b7d1); border-radius: 50%;"></div>
+                    </div>
+                    <div class="card">
+                        <h3>⚪ Conic Gradient</h3>
+                        <div class="gradient-preview" style="background: conic-gradient(from 0deg, #ff6b6b, #4ecdc4, #45b7d1, #ff6b6b);"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="design-system" class="section">
+                <h1 class="page-title">Design System</h1>
+                <div class="card">
+                    <h3>🧩 Component Library Preview</h3>
+                    <div class="ui-preview" style="gap: 2rem;">
+                        <div>
+                            <h4>Buttons</h4>
+                            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                                <button class="btn-demo btn-primary-demo">Primary</button>
+                                <button class="btn-demo btn-secondary-demo">Secondary</button>
+                                <button class="btn-demo btn-success-demo">Success</button>
+                                <a href="#" class="btn-demo" style="background: transparent; color: #ef4444; border: 2px solid #ef4444;">Danger</a>
+                            </div>
+                        </div>
+                        <div class="card-demo">
+                            <h5>Card Component</h5>
+                            <p>Professional card with perfect shadows and spacing.</p>
+                            <div style="margin-top: 1rem;">
+                                <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">Action</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="user" class="section">
+                <h1 class="page-title">My Palettes</h1>
+                <p class="page-subtitle">Favorites, history, and saved projects</p>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>⭐ Favorites (3)</h3>
+                        <div class="palette-preview">
+                            <div class="color-swatch active" style="background: #ff6b6b;"><div class="color-label">#ff6b6b</div></div>
+                            <div class="color-swatch" style="background: #4ecdc4;"><div class="color-label">#4ecdc4</div></div>
+                            <div class="color-swatch" style="background: #45b7d1;"><div class="color-label">#45b7d1</div></div>
+                            <div class="color-swatch" style="background: #96ceb4;"><div class="color-label">#96ceb4</div></div>
+                            <div class="color-swatch" style="background: #feca57;"><div class="color-label">#feca57</div></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>📚 Recent Palettes</h3>
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div style="display: flex; gap: 1rem; align-items: center;">
+                                <div class="color-swatch" style="width: 40px; height: 40px; background: linear-gradient(45deg, #667eea, #764ba2);"></div>
+                                <div>Sunset Gradient</div>
+                                <div style="margin-left: auto;">
+                                    <button class="btn btn-secondary" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;">Use</button>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 1rem; align-items: center;">
+                                <div class="color-swatch" style="width: 40px; height: 40px; background: linear-gradient(45deg, #ff6b6b, #4ecdc4);"></div>
+                                <div>Ocean Breeze</div>
+                                <div style="margin-left: auto;">
+                                    <button class="btn btn-secondary" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;">Use</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Pure CSS navigation simulation using hash changes and smooth scrolling
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const section = item.dataset.section;
+                
+                // Update active nav
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+                
+                // Show section
+                document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+                document.getElementById(section).classList.add('active');
+                
+                // Smooth scroll to top
+                document.querySelector('.main').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Color picker interactions
+        document.querySelectorAll('input[type="color"]').forEach(picker => {
+            picker.addEventListener('input', (e) => {
+                // Visual feedback on color change
+                e.target.style.boxShadow = `0 0 0 3px ${e.target.value}20`;
+            });
+        });
+
+        // Slider interactions
+        document.querySelectorAll('.slider').forEach(slider => {
+            slider.addEventListener('input', (e) => {
+                // Dynamic preview updates (visual only)
+                const value = e.target.value;
+                e.target.style.background = `linear-gradient(to right, var(--primary-400) 0%, var(--primary-400) ${value}%, var(--surface-variant) ${value}%)`;
+            });
+        });
+
+        // Copy to clipboard simulation
+        document.querySelectorAll('.btn-primary').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255,255,255,0.6);
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    width: 20px;
+                    height: 20px;
+                    left: 50%;
+                    top: 50%;
+                `;
+                btn.style.position = 'relative';
+                btn.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+    </script>
+</body>
+</html>

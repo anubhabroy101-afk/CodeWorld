@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Color Design Platform UI</title>
+
+<style>
+
+:root{
+--bg:#0f1117;
+--panel:#161a23;
+--card:#1e2430;
+--border:#2a3142;
+--text:#e6e8ef;
+--muted:#9aa4b2;
+--accent:#5b8cff;
+--radius:12px;
+--gap:20px;
+--font: "Segoe UI", system-ui, sans-serif;
+}
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+font-family:var(--font);
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+display:grid;
+grid-template-columns:260px 1fr;
+min-height:100vh;
+}
+
+.sidebar{
+background:#0c0f15;
+border-right:1px solid var(--border);
+padding:20px;
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.logo{
+font-size:20px;
+font-weight:600;
+color:white;
+}
+
+.nav{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.nav a{
+text-decoration:none;
+color:var(--muted);
+padding:10px 12px;
+border-radius:8px;
+transition:.2s;
+}
+
+.nav a:hover{
+background:var(--card);
+color:white;
+}
+
+.main{
+padding:30px;
+display:flex;
+flex-direction:column;
+gap:40px;
+}
+
+.section{
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.section h2{
+font-size:20px;
+font-weight:600;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:var(--gap);
+}
+
+.card{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:var(--radius);
+padding:18px;
+display:flex;
+flex-direction:column;
+gap:12px;
+transition:.2s;
+}
+
+.card:hover{
+transform:translateY(-4px);
+border-color:#3a435a;
+}
+
+.palette{
+display:flex;
+height:50px;
+border-radius:8px;
+overflow:hidden;
+}
+
+.palette div{
+flex:1;
+}
+
+.controls{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.btn{
+padding:8px 12px;
+border-radius:6px;
+border:1px solid var(--border);
+background:#12151c;
+color:var(--text);
+cursor:pointer;
+transition:.2s;
+}
+
+.btn:hover{
+background:var(--accent);
+border-color:var(--accent);
+}
+
+.input{
+background:#11141b;
+border:1px solid var(--border);
+padding:6px 8px;
+border-radius:6px;
+color:white;
+}
+
+.preview-ui{
+background:white;
+border-radius:10px;
+padding:15px;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.preview-ui.dark{
+background:#121212;
+color:white;
+}
+
+.button{
+padding:10px 14px;
+background:var(--accent);
+border-radius:6px;
+color:white;
+width:fit-content;
+}
+
+.card-mini{
+background:#f2f3f7;
+padding:10px;
+border-radius:6px;
+}
+
+.gradient{
+height:60px;
+border-radius:10px;
+}
+
+.gradient.linear{
+background:linear-gradient(90deg,#ff6b6b,#feca57,#48dbfb);
+}
+
+.gradient.radial{
+background:radial-gradient(circle,#ff9ff3,#5f27cd);
+}
+
+.gradient.conic{
+background:conic-gradient(#ff6b6b,#48dbfb,#1dd1a1,#ff6b6b);
+}
+
+.gradient.mesh{
+background:linear-gradient(45deg,#ff9ff3,#feca57,#48dbfb,#1dd1a1);
+background-size:400% 400%;
+animation:mesh 8s infinite alternate;
+}
+
+@keyframes mesh{
+0%{background-position:0% 50%}
+100%{background-position:100% 50%}
+}
+
+.gradient.noise{
+background:
+linear-gradient(120deg,#6a11cb,#2575fc),
+repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 2px,transparent 2px 4px);
+}
+
+.wheel{
+width:140px;
+height:140px;
+border-radius:50%;
+background:conic-gradient(red, yellow, lime, cyan, blue, magenta, red);
+margin:auto;
+}
+
+.diagram{
+height:120px;
+background:#0d1016;
+border-radius:10px;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#6b7280;
+}
+
+.preview-site{
+background:white;
+padding:15px;
+border-radius:10px;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.preview-header{
+height:30px;
+background:#5b8cff;
+border-radius:4px;
+}
+
+.preview-card{
+height:60px;
+background:#e6e8ef;
+border-radius:6px;
+}
+
+.palette-grid{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:6px;
+}
+
+.palette-grid div{
+height:40px;
+border-radius:6px;
+}
+
+.history{
+display:flex;
+gap:8px;
+}
+
+.history div{
+width:40px;
+height:40px;
+border-radius:6px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="logo">ColorLab</div>
+
+<div class="nav">
+<a href="#">Color Generators</a>
+<a href="#">Smart Tools</a>
+<a href="#">Utilities</a>
+<a href="#">Accessibility</a>
+<a href="#">Gradients</a>
+<a href="#">Design System</a>
+<a href="#">Developer Export</a>
+<a href="#">User Library</a>
+<a href="#">Visualization</a>
+</div>
+
+</div>
+
+<div class="main">
+
+<section class="section">
+<h2>🎨 Color Generators</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Random Palette</h3>
+<div class="palette">
+<div style="background:#ff6b6b"></div>
+<div style="background:#feca57"></div>
+<div style="background:#48dbfb"></div>
+<div style="background:#1dd1a1"></div>
+<div style="background:#5f27cd"></div>
+</div>
+<div class="controls">
+<button class="btn">Generate</button>
+<button class="btn">Save</button>
+</div>
+</div>
+
+<div class="card">
+<h3>Tailwind Style Shades</h3>
+<div class="palette-grid">
+<div style="background:#eff6ff"></div>
+<div style="background:#dbeafe"></div>
+<div style="background:#bfdbfe"></div>
+<div style="background:#93c5fd"></div>
+<div style="background:#60a5fa"></div>
+<div style="background:#3b82f6"></div>
+<div style="background:#2563eb"></div>
+<div style="background:#1d4ed8"></div>
+<div style="background:#1e40af"></div>
+<div style="background:#1e3a8a"></div>
+</div>
+</div>
+
+<div class="card">
+<h3>Pastel Generator</h3>
+<div class="palette">
+<div style="background:#ffd6e0"></div>
+<div style="background:#d6f5ff"></div>
+<div style="background:#e5ffd6"></div>
+<div style="background:#fff0d6"></div>
+<div style="background:#ead6ff"></div>
+</div>
+</div>
+
+<div class="card">
+<h3>Neon Generator</h3>
+<div class="palette">
+<div style="background:#ff00ff"></div>
+<div style="background:#00ffff"></div>
+<div style="background:#39ff14"></div>
+<div style="background:#ffea00"></div>
+<div style="background:#ff007f"></div>
+</div>
+</div>
+
+<div class="card">
+<h3>Dark UI Palette</h3>
+<div class="palette">
+<div style="background:#0f1117"></div>
+<div style="background:#161a23"></div>
+<div style="background:#1e2430"></div>
+<div style="background:#2a3142"></div>
+<div style="background:#5b8cff"></div>
+</div>
+</div>
+
+<div class="card">
+<h3>Gradient Palette</h3>
+<div class="gradient linear"></div>
+</div>
+
+</div>
+</section>
+
+<section class="section">
+<h2>🧠 Smart Design Tools</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Light / Dark Theme</h3>
+<div class="preview-ui">
+<div class="button">Primary Button</div>
+<div class="card-mini">Card preview</div>
+</div>
+<div class="preview-ui dark">
+<div class="button">Primary Button</div>
+<div class="card-mini">Card preview</div>
+</div>
+</div>
+
+<div class="card">
+<h3>Accent Color Suggestion</h3>
+<div class="palette">
+<div style="background:#ff6b6b"></div>
+<div style="background:#feca57"></div>
+<div style="background:#48dbfb"></div>
+<div style="background:#5b8cff"></div>
+<div style="background:#10ac84"></div>
+</div>
+</div>
+
+<div class="card">
+<h3>Design System Preview</h3>
+<div class="preview-ui">
+<div class="button">Button</div>
+<div class="card-mini">Card</div>
+<a href="#">Link</a>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="section">
+<h2>🔍 Color Utilities</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Hex → RGB</h3>
+<input class="input" placeholder="#5B8CFF">
+<input class="input" placeholder="RGB Output">
+</div>
+
+<div class="card">
+<h3>Hex → HSL</h3>
+<input class="input" placeholder="#5B8CFF">
+<input class="input" placeholder="HSL Output">
+</div>
+
+<div class="card">
+<h3>Color Mixer</h3>
+<div class="palette">
+<div style="background:#ff6b6b"></div>
+<div style="background:#48dbfb"></div>
+<div style="background:#a29bfe"></div>
+</div>
+</div>
+
+<div class="card">
+<h3>Shade / Tint Generator</h3>
+<div class="palette-grid">
+<div style="background:#e3f2fd"></div>
+<div style="background:#bbdefb"></div>
+<div style="background:#90caf9"></div>
+<div style="background:#64b5f6"></div>
+<div style="background:#42a5f5"></div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="section">
+<h2>♿ Accessibility</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Contrast Checker</h3>
+<div style="display:flex;gap:10px">
+<div style="width:40px;height:40px;background:#ffffff;border-radius:6px"></div>
+<div style="width:40px;height:40px;background:#5b8cff;border-radius:6px"></div>
+</div>
+<p style="color:var(--muted)">WCAG AA ✓</p>
+</div>
+
+<div class="card">
+<h3>Color Blind Simulation</h3>
+<div class="palette">
+<div style="background:#ff0000"></div>
+<div style="background:#00ff00"></div>
+<div style="background:#0000ff"></div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="section">
+<h2>🌈 Gradient Tools</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Linear Gradient</h3>
+<div class="gradient linear"></div>
+</div>
+
+<div class="card">
+<h3>Radial Gradient</h3>
+<div class="gradient radial"></div>
+</div>
+
+<div class="card">
+<h3>Conic Gradient</h3>
+<div class="gradient conic"></div>
+</div>
+
+<div class="card">
+<h3>Mesh Gradient</h3>
+<div class="gradient mesh"></div>
+</div>
+
+<div class="card">
+<h3>Noise Gradient</h3>
+<div class="gradient noise"></div>
+</div>
+
+</div>
+</section>
+
+<section class="section">
+<h2>🧩 Design System Preview</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Component Library</h3>
+<div class="preview-ui">
+<div class="button">Button</div>
+<input class="input" placeholder="Input">
+<div class="card-mini">Card</div>
+</div>
+</div>
+
+<div class="card">
+<h3>Theme Switch</h3>
+<div class="controls">
+<button class="btn">Light</button>
+<button class="btn">Dark</button>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="section">
+<h2>⭐ User Features</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Favorites</h3>
+<div class="history">
+<div style="background:#ff6b6b"></div>
+<div style="background:#feca57"></div>
+<div style="background:#48dbfb"></div>
+<div style="background:#5f27cd"></div>
+</div>
+</div>
+
+<div class="card">
+<h3>Palette History</h3>
+<div class="history">
+<div style="background:#10ac84"></div>
+<div style="background:#ff9ff3"></div>
+<div style="background:#00d2d3"></div>
+<div style="background:#ee5253"></div>
+</div>
+</div>
+
+<div class="card">
+<h3>Export Palette</h3>
+<div class="controls">
+<button class="btn">CSS</button>
+<button class="btn">JSON</button>
+<button class="btn">SCSS</button>
+<button class="btn">Tailwind</button>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="section">
+<h2>📊 Visualization</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Color Wheel</h3>
+<div class="wheel"></div>
+</div>
+
+<div class="card">
+<h3>Harmony Diagram</h3>
+<div class="diagram">Triadic / Complementary</div>
+</div>
+
+<div class="card">
+<h3>Website Preview</h3>
+<div class="preview-site">
+<div class="preview-header"></div>
+<div class="preview-card"></div>
+<div class="preview-card"></div>
+</div>
+</div>
+
+<div class="card">
+<h3>Dashboard Preview</h3>
+<div class="preview-site">
+<div class="preview-header"></div>
+<div class="preview-card"></div>
+<div class="preview-card"></div>
+</div>
+</div>
+
+</div>
+</section>
+
+</div>
+
+</body>
+</html>

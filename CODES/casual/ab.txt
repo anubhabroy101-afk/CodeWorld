@@ -1,0 +1,9 @@
+<HTML>
+<HEAD> 
+<TITLE>ALPHA</TITLE>
+</HEAD>
+<BODY bgcolor = "blue"> 
+a simple text
+</BODY>
+</HTML>
+

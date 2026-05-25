@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A comprehensive example of HTML5 tags and attributes.">
+    <meta name="author" content="Your Name">
+    <title>HTML5 Complete Example</title>
+    <link rel="stylesheet" href="styles.css" integrity="sha384-abc123" crossorigin="anonymous">
+    <script src="script.js" async defer integrity="sha384-def456" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#section1" target="_self" rel="nofollow">Section 1</a></li>
+                <li><a href="#section2" target="_blank" rel="noopener noreferrer">Section 2</a></li>
+            </ul>
+        </nav>
+        <h1>HTML5 Example</h1>
+    </header>
+
+    <main>
+        <section id="section1" aria-labelledby="section1-title">
+            <h2 id="section1-title">Section 1</h2>
+            <article>
+                <h3>Article 1</h3>
+                <p>This is a <strong>paragraph</strong> with <em>emphasized</em> text, <a href="https://example.com" title="Example site">a link</a>, and an <abbr title="abbreviation">abbr</abbr>.</p>
+                <ul>
+                    <li><time datetime="2024-12-15">Date</time></li>
+                    <li>Ordered list item</li>
+                </ul>
+                <figure>
+                    <img src="image.jpg" alt="Sample image" width="300" height="200" loading="lazy">
+                    <figcaption>Sample Image</figcaption>
+                </figure>
+                <blockquote cite="https://example.com">This is a blockquote.</blockquote>
+                <pre><code class="language-html">&lt;html&gt;Example code&lt;/html&gt;</code></pre>
+            </article>
+        </section>
+
+        <section id="section2" aria-labelledby="section2-title">
+            <h2 id="section2-title">Section 2</h2>
+            <table>
+                <caption>Sample Table</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Header 1</th>
+                        <th scope="col">Header 2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Header 1">Row 1, Col 1</td>
+                        <td data-label="Header 2">Row 1, Col 2</td>
+                    </tr>
+                </tbody>
+            </table>
+            <form action="/submit" method="post" enctype="multipart/form-data" autocomplete="on">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="file">File Upload:</label>
+                <input type="file" id="file" name="file">
+                <fieldset>
+                    <legend>Choose an option:</legend>
+                    <label><input type="radio" name="option" value="1" checked> Option 1</label>
+                    <label><input type="radio" name="option" value="2"> Option 2</label>
+                </fieldset>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Your Name</p>
+    </footer>
+
+    <!-- SVG Example -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" role="img" aria-labelledby="title desc">
+        <title id="title">Sample SVG</title>
+        <desc id="desc">A simple SVG example.</desc>
+        <circle cx="50" cy="50" r="40" fill="blue"></circle>
+    </svg>
+
+    <dialog open>Example dialog content.</dialog>
+</body>
+</html>
