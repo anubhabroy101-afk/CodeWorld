@@ -12,7 +12,7 @@ This workspace has been configured with a complete Python development environmen
 
 ## Project Structure
 
-```
+```text
 CODES/
 ├── .vscode/                 # VS Code settings and configurations
 │   ├── settings.json       # Workspace settings
