@@ -1,0 +1,6 @@
+[submodule "Python"]
+	path = Python
+	url = https://github.com/anubhabroy101-afk/Python
+[submodule "C-C--"]
+	path = C-C--
+	url = https://github.com/anubhabroy101-afk/C-C--
