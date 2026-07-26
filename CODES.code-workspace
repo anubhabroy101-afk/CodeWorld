@@ -2,20 +2,20 @@
   "folders": [
     {
       "path": ".",
-      "name": "CODES (Root)",
+      "name": "CODES (Root)"
     },
     {
       "path": "Python",
-      "name": "Python Projects",
+      "name": "Python Projects"
     },
     {
       "path": "C-C--",
-      "name": "C/C++ Projects",
+      "name": "C/C++ Projects"
     },
     {
       "path": "HTML",
-      "name": "HTML Projects",
-    },
+      "name": "HTML Projects"
+    }
   ],
   "settings": {
     "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
@@ -23,17 +23,19 @@
     "python.formatting.provider": "black",
     "[python]": {
       "editor.defaultFormatter": "ms-python.python",
-      "editor.formatOnSave": true,
+      "editor.formatOnSave": true
     },
     "editor.formatOnSave": true,
-    "editor.rulers": [88],
+    "editor.rulers": [
+      88
+    ],
     "files.exclude": {
       "**/__pycache__": true,
-      "**/*.pyc": true,
-    },
+      "**/*.pyc": true
+    }
   },
   "launch": {
     "version": "0.2.0",
-    "configurations": [],
-  },
+    "configurations": []
+  }
 }
