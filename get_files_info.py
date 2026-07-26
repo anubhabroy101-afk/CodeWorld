@@ -1,18 +1,19 @@
-import os
-from datetime import datetime, timedelta
+from datetime import datetime
+from pathlib import Path
 
-class_dir = r'd:\ANUBHAB\CODES\Python\class'
+repo_root = Path(__file__).resolve().parent
+class_dir = repo_root / "Python" / "class"
+
 today = datetime.now().date()
 
 files_info = []
-for f in os.listdir(class_dir):
-    if f.endswith('.py'):
-        filepath = os.path.join(class_dir, f)
-        mtime = datetime.fromtimestamp(os.path.getmtime(filepath)).date()
-        files_info.append((f, mtime))
+for path in sorted(class_dir.iterdir()):
+    if path.is_file() and path.suffix == ".py":
+        mtime = datetime.fromtimestamp(path.stat().st_mtime).date()
+        files_info.append((path.name, mtime))
 
-files_info.sort(key=lambda x: x[1], reverse=True)
+files_info.sort(key=lambda item: item[1], reverse=True)
 
-for f, mtime in files_info:
+for filename, mtime in files_info:
     days_ago = (today - mtime).days
-    print(f'{f:30} | {mtime} ({days_ago} days ago)')
+    print(f"{filename:<30} | {mtime} ({days_ago} days ago)")
